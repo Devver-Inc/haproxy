@@ -1,0 +1,19 @@
+haproxy_vhosts:
+
+  - name: devver
+    domain: devver.vrhometech.fr
+    backend_ip: 192.168.45.99
+    backend_port: 443
+    type: tcp
+    template: devver-wildcard.j2
+
+
+
+  - name: nextcloud
+    domain: nextcloud.vrhometech.fr
+    backend_ip: 192.168.20.3
+    backend_port: 11000
+    type: http
+    template: nextcloud.vrhometech.fr.j2
+
+
