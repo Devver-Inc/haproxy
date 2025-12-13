@@ -1,6 +1,4 @@
----
-- name: Déployer HAProxy avec vhosts
-  hosts: haproxy
-  become: yes
+- hosts: haproxy
+  become: true
   roles:
-    - haproxy
+    - haproxy_config

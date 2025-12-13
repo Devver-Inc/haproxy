@@ -1,5 +1,4 @@
----
 - hosts: haproxy
-  become: yes
+  become: true
   roles:
-    - haproxy
+    - haproxy_install

@@ -1,3 +1,5 @@
+haproxy_package: haproxy
+haproxy_service_name: haproxy
 haproxy_conf_dir: "/etc/haproxy/conf.d"
 haproxy_cfg: "/etc/haproxy/haproxy.cfg"
 haproxy_vhosts: []

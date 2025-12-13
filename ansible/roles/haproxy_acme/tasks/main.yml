@@ -1,0 +1,65 @@
+---
+- name: Installer certbot et plugin Cloudflare
+  apt:
+    name:
+      - certbot
+      - python3-certbot-dns-cloudflare
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Déployer fichier credentials Cloudflare
+  copy:
+    dest: /etc/letsencrypt/cloudflare.ini
+    content: "dns_cloudflare_api_token = {{ cloudflare_api_token }}"
+    owner: root
+    group: root
+    mode: '0600'
+  become: yes
+
+- name: Générer les certificats SSL pour chaque vhost
+  command: >
+    certbot certonly
+    --dns-cloudflare
+    --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini
+    -d {{ item.domain }}
+    --non-interactive
+    --agree-tos
+    -m {{ acme_email }}
+  loop: "{{ haproxy_vhosts }}"
+  when: item.type == 'http'
+  become: yes
+
+- name: Créer le dossier des certificats HAProxy
+  file:
+    path: /etc/haproxy/certs
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+
+- name: Fusionner certificate + key en PEM compatible HAProxy
+  shell: |
+    cat /etc/letsencrypt/live/{{ item.domain }}/fullchain.pem \
+        /etc/letsencrypt/live/{{ item.domain }}/privkey.pem \
+        > /etc/haproxy/certs/{{ item.domain }}.pem
+  loop: "{{ haproxy_vhosts }}"
+  when: (item.type | default('http')) == 'http'
+  notify: Reload HAProxy
+
+- name: Installer cron
+  apt:
+    name: cron
+    state: present
+    update_cache: yes
+  become: yes
+
+
+- name: Ajouter cron pour renouvellement automatique
+  cron:
+    name: "Renew Let's Encrypt certificates"
+    job: "certbot renew --quiet && systemctl reload haproxy"
+    minute: "0"
+    hour: "3"
+  become: yes
