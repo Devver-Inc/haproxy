@@ -7,7 +7,12 @@ haproxy_vhosts:
     type: tcp
     template: devver-wildcard.j2
 
-
+  - name: logto.devver.app
+    domain: logto.devver.app
+    backend_ip: 192.168.45.50
+    backend_port: 443
+    type: tcp
+    template: logto.devver.app.j2
 
   - name: nextcloud
     domain: nextcloud.vrhometech.fr
