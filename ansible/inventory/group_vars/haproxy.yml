@@ -1,5 +1,26 @@
 haproxy_vhosts:
 
+  - name: www.devver.app
+    domain: www.devver.app
+    backend_ip: 192.168.45.99
+    backend_port: 443
+    type: tcp
+    template: devver-tcp.j2
+  
+  - name: app.devver.app
+    domain: app.devver.app
+    backend_ip: 192.168.45.99
+    backend_port: 443
+    type: tcp
+    template: devver-tcp.j2
+  
+  - name: docs.devver.app
+    domain: docs.devver.app
+    backend_ip: 192.168.45.99
+    backend_port: 443
+    type: tcp
+    template: devver-tcp.j2
+
   - name: devver
     domain: devver.vrhometech.fr
     backend_ip: 192.168.45.99
