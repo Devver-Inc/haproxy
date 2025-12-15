@@ -1,4 +1,13 @@
 haproxy_vhosts:
+  
+
+  - name: devver.app
+    domain: devver.app
+    backend_ip: 192.168.45.99
+    backend_port: 443
+    type: tcp
+    template: devver-tcp.j2
+
 
   - name: www.devver.app
     domain: www.devver.app
