@@ -1,31 +1,22 @@
 haproxy_vhosts:
   
-
-  - name: devver.app
-    domain: devver.app
-    backend_ip: 192.168.45.99
-    backend_port: 443
-    type: tcp
-    template: devver-tcp.j2
-
-
   - name: www.devver.app
     domain: www.devver.app
-    backend_ip: 192.168.45.99
+    backend_ip: 192.168.45.50
     backend_port: 443
     type: tcp
     template: devver-tcp.j2
   
   - name: app.devver.app
     domain: app.devver.app
-    backend_ip: 192.168.45.99
+    backend_ip: 192.168.45.50
     backend_port: 443
     type: tcp
     template: devver-tcp.j2
   
   - name: docs.devver.app
     domain: docs.devver.app
-    backend_ip: 192.168.45.99
+    backend_ip: 192.168.45.50
     backend_port: 443
     type: tcp
     template: devver-tcp.j2
@@ -51,11 +42,11 @@ haproxy_vhosts:
     type: tcp
     template: auth.devver.app.j2
  
-  # - name: nextcloud
-  #   domain: nextcloud.vrhometech.fr
-  #   backend_ip: 192.168.20.3
-  #   backend_port: 11000
-  #   type: http
-  #   template: nextcloud.vrhometech.fr.j2
+  - name: nextcloud
+    domain: nextcloud.vrhometech.fr
+    backend_ip: 192.168.20.3
+    backend_port: 11000
+    type: http
+    template: nextcloud.vrhometech.fr.j2
 
 
