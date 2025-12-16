@@ -28,6 +28,6 @@ defaults
 {% include 'front-443-tcp.j2' %}
 
 # --- BACKENDS ---
-{% for vhost in haproxy_vhosts %}
-{% include 'vhosts/backend-tcp.j2' %}
+{% for vhost in haproxy_tcp_vhosts %}
+{% include 'backend-tcp.j2' %}
 {% endfor %}

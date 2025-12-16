@@ -1,4 +1,4 @@
-haproxy_vhosts:
+haproxy_tcp_vhosts:
   
   - name: www.devver.app
     frontend: 443
@@ -50,11 +50,6 @@ haproxy_vhosts:
       port: 443
 
  
-  # - name: nextcloud
-  #   domain: nextcloud.vrhometech.fr
-  #   backend_ip: 192.168.20.3
-  #   backend_port: 11000
-  #   type: http
-  #   template: nextcloud.vrhometech.fr.j2
+  
 
 
