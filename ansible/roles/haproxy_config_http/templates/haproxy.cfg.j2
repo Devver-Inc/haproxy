@@ -30,4 +30,18 @@ defaults
 
 
 {# === BACKS === #}
-{% include 'vhosts/nextcloud.vrhometech.fr.j2' %}
+{% for vhost in haproxy_http_vhosts if vhost.type == "http" %}
+{% if vhost.template is defined %}
+{# Si un template personnalisé est défini, on l'utilise #}
+{% include 'vhosts/' + vhost.template %}
+{% else %}
+{# Sinon, on utilise le template générique par défaut (backend simple sans websocket) #}
+backend {{ vhost.name }}_backend
+    mode http
+    option forwardfor
+    timeout server 86400s
+
+    server {{ vhost.name }} {{ vhost.backend_ip }}:{{ vhost.backend_port }} check
+
+{% endif %}
+{% endfor %}
