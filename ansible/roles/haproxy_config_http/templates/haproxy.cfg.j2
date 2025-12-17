@@ -25,5 +25,9 @@ defaults
     errorfile 504 /etc/haproxy/errors/504.http
 
 
-include /etc/haproxy/frontends/*.cfg
-include /etc/haproxy/vhosts/*.cfg
+{# === FRONTS === #}
+{% include 'frontends/https_443_frontend.cfg.j2' %}
+
+
+{# === BACKS === #}
+{% include 'vhosts/nextcloud.vrhometech.fr.j2' %}
