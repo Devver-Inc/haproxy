@@ -48,6 +48,14 @@ haproxy_tcp_vhosts:
       ip: 192.168.45.50
       port: 443
 
+  - name: uptime-kuma.devver.app
+    frontend: 443
+    type: tcp
+    accept_rule: "{ req_ssl_sni -i uptime-kuma.devver.app }"
+    backend:
+      ip: 192.168.45.50
+      port: 443
+
   - name: devver
     frontend: 443
     type: tcp
